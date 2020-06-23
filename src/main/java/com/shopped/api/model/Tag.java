@@ -15,13 +15,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Tag {
     private String name;
     private String type;
-    @JsonInclude(Include.NON_NULL)
     private String color;
-    @JsonInclude(Include.NON_NULL)
     private String status;
 
     public Tag(@JsonProperty("NAME") String name, @JsonProperty("TYPE") String type,
-            @JsonProperty("COLOR") String color, @JsonProperty("STATUS") String status) {
+               @JsonProperty("COLOR") String color, @JsonProperty("STATUS") String status) {
         this.name = name;
         this.type = type;
         this.color = color;
