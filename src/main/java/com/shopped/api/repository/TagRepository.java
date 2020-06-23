@@ -1,10 +1,10 @@
 package com.shopped.api.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.shopped.api.dao.TagDao;
 import com.shopped.api.model.Tag;
 
@@ -25,40 +25,36 @@ public class TagRepository implements TagDao {
     }
 
     @Override
-    public boolean createTag(Tag tag) {
+    public <T> T create(T t) {
+        dbMapper.save(t);
+        return t;
+    }
+
+    @Override
+    public <T> T update(T t) {
+        dbMapper.save(t);
+        return t;
+    }
+
+    @Override
+    public <T> T delete(T t) {
+        dbMapper.delete(t);
+        return t;
+    }
+
+    @Override
+    public <T> List<T> getAll() {
         try {
-            dbMapper.save(tag);
-            return true;
+            return (List<T>) dbMapper.scan(Tag.class, new DynamoDBScanExpression());
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
     }
 
     @Override
-    public boolean updateTag(Tag tag) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean deleteTag(Tag tag) {
-        try {
-            dbMapper.delete(tag);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Override
-    public List<Tag> getAllTags() {
-        return null;
-    }
-
-    @Override
-    public Optional<Tag> getTagByName(String name) {
-        return null;
+    public <T> T get(T t) {
+        return (T) dbMapper.load(Tag.class, ((Tag) t).getName(), ((Tag) t).getType());
     }
 
 }

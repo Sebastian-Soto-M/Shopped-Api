@@ -4,7 +4,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Tag
@@ -13,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Tag {
     private String name;
     private String type;
+    @JsonInclude(Include.NON_NULL)
     private String color;
+    @JsonInclude(Include.NON_NULL)
     private String status;
 
     public Tag(@JsonProperty("NAME") String name, @JsonProperty("TYPE") String type,
@@ -22,6 +26,14 @@ public class Tag {
         this.type = type;
         this.color = color;
         this.status = status;
+    }
+
+    public Tag(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public Tag() {
     }
 
     @DynamoDBHashKey(attributeName = "NAME")
