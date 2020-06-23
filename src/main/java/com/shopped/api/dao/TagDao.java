@@ -15,6 +15,6 @@ public interface TagDao {
 
     List<Tag> getAllTags();
 
-    Optional<Tag> getTagByName(String name);
+    Optional<Tag> getTagByName(String name, String type);
 
 }

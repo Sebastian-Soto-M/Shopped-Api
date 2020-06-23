@@ -24,6 +24,9 @@ public class Tag {
         this.status = status;
     }
 
+    public Tag() {
+    }
+
     @DynamoDBHashKey(attributeName = "NAME")
     public String getName() {
         return name;

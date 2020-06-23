@@ -1,10 +1,15 @@
 package com.shopped.api.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.shopped.api.dao.TagDao;
 import com.shopped.api.model.Tag;
 
@@ -53,12 +58,27 @@ public class TagRepository implements TagDao {
 
     @Override
     public List<Tag> getAllTags() {
-        return null;
+        try {
+            return dbMapper.scan(Tag.class, new DynamoDBScanExpression());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override
-    public Optional<Tag> getTagByName(String name) {
-        return null;
+    public Optional<Tag> getTagByName(String name, String type) {
+        // Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        // eav.put("name", new AttributeValue().withS(name));
+        // eav.put("type", new AttributeValue().withS(type));
+
+        // DynamoDBQueryExpression<Tag> queryExpression = new
+        // DynamoDBQueryExpression<Tag>()
+        // .withKeyConditionExpression("NAME = name and TYPE =
+        // type").withExpressionAttributeValues(eav)
+        // .withLimit(1);
+
+        return Optional.of(dbMapper.load(Tag.class, name, type));
     }
 
 }

@@ -43,8 +43,8 @@ public class TagService implements TagDao {
     }
 
     @Override
-    public Optional<Tag> getTagByName(String name) {
-        return tagDao.getTagByName(name);
+    public Optional<Tag> getTagByName(String name, String type) {
+        return tagDao.getTagByName(name, type);
     }
 
 }

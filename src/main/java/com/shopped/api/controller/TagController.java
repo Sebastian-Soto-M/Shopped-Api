@@ -27,10 +27,10 @@ public class TagController {
         ts.createTag(tag);
         return tag.getName();
     }
-    
+
     @DeleteMapping
     public boolean deleteTag(@RequestBody Tag tag) {
-    	return ts.deleteTag(tag);
+        return ts.deleteTag(tag);
     }
 
     @GetMapping
@@ -38,13 +38,10 @@ public class TagController {
         return ts.getAllTags();
     }
 
-    @GetMapping(path = "{name}")
-    public Tag getTag(@PathVariable("name") String name) {
-        Tag t = ts.getTagByName(name).orElse(null);
-        if (t != null) {
-            return t;
-        }
-        return new Tag("Not Found", "Not Found", "Not Found", "Not Found");
+    @GetMapping(path = "{name}/{type}")
+    public Tag getTag(@PathVariable("name") String name, @PathVariable("type") String type) {
+        Tag t = ts.getTagByName(name, type).orElse(new Tag());
+        return t;
     }
 
 }
