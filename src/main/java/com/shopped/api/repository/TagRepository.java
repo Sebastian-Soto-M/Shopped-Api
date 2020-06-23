@@ -1,15 +1,10 @@
 package com.shopped.api.repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.shopped.api.dao.TagDao;
 import com.shopped.api.model.Tag;
 
@@ -30,36 +25,27 @@ public class TagRepository implements TagDao {
     }
 
     @Override
-    public boolean createTag(Tag tag) {
-        try {
-            dbMapper.save(tag);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+    public <T> T create(T t) {
+        dbMapper.save(t);
+        return t;
     }
 
     @Override
-    public boolean updateTag(Tag tag) {
-        // TODO Auto-generated method stub
-        return false;
+    public <T> T update(T t) {
+        dbMapper.save(t);
+        return t;
     }
 
     @Override
-    public boolean deleteTag(Tag tag) {
-        try {
-            dbMapper.delete(tag);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public <T> T delete(T t) {
+        dbMapper.delete(t);
+        return t;
     }
 
     @Override
-    public List<Tag> getAllTags() {
+    public <T> List<T> getAll() {
         try {
-            return dbMapper.scan(Tag.class, new DynamoDBScanExpression());
+            return (List<T>) dbMapper.scan(Tag.class, new DynamoDBScanExpression());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -67,18 +53,8 @@ public class TagRepository implements TagDao {
     }
 
     @Override
-    public Optional<Tag> getTagByName(String name, String type) {
-        // Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-        // eav.put("name", new AttributeValue().withS(name));
-        // eav.put("type", new AttributeValue().withS(type));
-
-        // DynamoDBQueryExpression<Tag> queryExpression = new
-        // DynamoDBQueryExpression<Tag>()
-        // .withKeyConditionExpression("NAME = name and TYPE =
-        // type").withExpressionAttributeValues(eav)
-        // .withLimit(1);
-
-        return Optional.of(dbMapper.load(Tag.class, name, type));
+    public <T> T get(T t) {
+        return (T) dbMapper.load(Tag.class, ((Tag) t).getName(), ((Tag) t).getType());
     }
 
 }

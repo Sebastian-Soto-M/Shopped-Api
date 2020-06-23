@@ -1,10 +1,8 @@
 package com.shopped.api.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.shopped.api.dao.TagDao;
-import com.shopped.api.model.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,28 +21,28 @@ public class TagService implements TagDao {
     }
 
     @Override
-    public boolean createTag(Tag tag) {
-        return tagDao.createTag(tag);
+    public <T> T create(T t) {
+        return this.tagDao.create(t);
     }
 
     @Override
-    public boolean updateTag(Tag tag) {
-        return tagDao.updateTag(tag);
+    public <T> T update(T t) {
+        return this.tagDao.update(t);
     }
 
     @Override
-    public boolean deleteTag(Tag tag) {
-        return tagDao.deleteTag(tag);
+    public <T> T delete(T t) {
+        return this.tagDao.delete(t);
     }
 
     @Override
-    public List<Tag> getAllTags() {
-        return tagDao.getAllTags();
+    public <T> List<T> getAll() {
+        return this.tagDao.getAll();
     }
 
     @Override
-    public Optional<Tag> getTagByName(String name, String type) {
-        return tagDao.getTagByName(name, type);
+    public <T> T get(T t) {
+        return this.tagDao.get(t);
     }
 
 }

@@ -23,25 +23,28 @@ public class TagController {
     }
 
     @PostMapping
-    public String createTag(@RequestBody Tag tag) {
-        ts.createTag(tag);
-        return tag.getName();
+    public Tag create(@RequestBody Tag tag) {
+        return ts.create(tag);
     }
 
-    @DeleteMapping
-    public boolean deleteTag(@RequestBody Tag tag) {
-        return ts.deleteTag(tag);
+    @PutMapping
+    public Tag update(@RequestBody Tag tag) {
+        return ts.update(tag);
     }
 
-    @GetMapping
-    public List<Tag> getAllTags() {
-        return ts.getAllTags();
+    @DeleteMapping(path = "{name}/{type}")
+    public Tag delete(@PathVariable("name") String name, @PathVariable("type") String type) {
+        return ts.delete(new Tag(name, type));
     }
 
     @GetMapping(path = "{name}/{type}")
-    public Tag getTag(@PathVariable("name") String name, @PathVariable("type") String type) {
-        Tag t = ts.getTagByName(name, type).orElse(new Tag());
-        return t;
+    public Tag get(@PathVariable("name") String name, @PathVariable("type") String type) {
+        return ts.get(new Tag(name, type));
+    }
+
+    @GetMapping
+    public List<Tag> getAll() {
+        return ts.getAll();
     }
 
 }
