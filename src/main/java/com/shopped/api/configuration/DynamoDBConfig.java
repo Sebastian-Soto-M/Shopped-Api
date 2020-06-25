@@ -29,9 +29,7 @@ public class DynamoDBConfig {
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(amazonAWSCredentials())).withRegion(Regions.US_WEST_2)
                 .build();
-
         return client;
-
     }
 
     @Bean
