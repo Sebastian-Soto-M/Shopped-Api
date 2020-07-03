@@ -5,8 +5,8 @@ import java.util.List;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.shopped.api.dao.TagDao;
-import com.shopped.api.model.Tag;
+import com.shopped.api.dao.UserDao;
+import com.shopped.api.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Repository;
 /**
  * AwsServiceRepository
  */
-@Repository("nosql-tag")
-public class TagRepository implements TagDao {
+@Repository("nosql-user")
+public class UserRepository implements UserDao {
 
     private DynamoDBMapper dbMapper;
 
     @Autowired
-    public TagRepository(AmazonDynamoDB dynamoDB) {
+    public UserRepository(AmazonDynamoDB dynamoDB) {
         this.dbMapper = new DynamoDBMapper(dynamoDB);
     }
 
@@ -45,7 +45,7 @@ public class TagRepository implements TagDao {
     @Override
     public <T> List<T> getAll() {
         try {
-            return (List<T>) dbMapper.scan(Tag.class, new DynamoDBScanExpression());
+            return (List<T>) dbMapper.scan(User.class, new DynamoDBScanExpression());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -54,7 +54,7 @@ public class TagRepository implements TagDao {
 
     @Override
     public <T> T get(T t) {
-        return (T) dbMapper.load(Tag.class, ((Tag) t).getName(), ((Tag) t).getType());
+        return (T) dbMapper.load(User.class, ((User) t).getId(), ((User) t).getStatus());
     }
 
 }

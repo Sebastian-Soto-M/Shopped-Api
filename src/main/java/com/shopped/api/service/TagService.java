@@ -16,7 +16,7 @@ public class TagService implements TagDao {
     private final TagDao tagDao;
 
     @Autowired
-    public TagService(@Qualifier("nosql") TagDao tagDao) {
+    public TagService(@Qualifier("nosql-tag") TagDao tagDao) {
         this.tagDao = tagDao;
     }
 
