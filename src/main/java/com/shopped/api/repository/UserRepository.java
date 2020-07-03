@@ -57,4 +57,10 @@ public class UserRepository implements UserDao {
         return (T) dbMapper.load(User.class, ((User) t).getId(), ((User) t).getStatus());
     }
 
+    @Override
+    public List<User> getAllByGsi() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
