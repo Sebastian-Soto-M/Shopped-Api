@@ -33,9 +33,9 @@ public class Bundle {
         this.instructions = instructions;
     }
 
-    public Bundle(String id, String type) {
+    public Bundle(String id, String status) {
         this.id = id;
-        this.type = type;
+        this.status = status;
     }
 
     public Bundle() {

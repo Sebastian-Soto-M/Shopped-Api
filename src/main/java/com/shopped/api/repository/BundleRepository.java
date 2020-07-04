@@ -54,7 +54,7 @@ public class BundleRepository implements BundleDao {
 
     @Override
     public <T> T get(T t) {
-        return (T) dbMapper.load(Bundle.class, ((Bundle) t).getId());
+        return (T) dbMapper.load(Bundle.class, ((Bundle) t).getId(),((Bundle) t).getStatus());
     }
 
 }

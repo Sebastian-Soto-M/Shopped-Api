@@ -32,14 +32,14 @@ public class BundleController {
         return ts.update(bundle);
     }
 
-    @DeleteMapping(path = "{id}/{type}")
-    public Bundle delete(@PathVariable("id") String id, @PathVariable("type") String type) {
-        return ts.delete(new Bundle(id, type));
+    @DeleteMapping(path = "{id}/{status}")
+    public Bundle delete(@PathVariable("id") String id, @PathVariable("status") String status) {
+        return ts.delete(new Bundle(id, status));
     }
 
-    @GetMapping(path = "{name}/{type}")
-    public Bundle get(@PathVariable("name") String name, @PathVariable("type") String type) {
-        return ts.get(new Bundle(name, type));
+    @GetMapping(path = "{id}/{status}")
+    public Bundle get(@PathVariable("id") String id, @PathVariable("status") String status) {
+        return ts.get(new Bundle(id, status));
     }
 
     @GetMapping
