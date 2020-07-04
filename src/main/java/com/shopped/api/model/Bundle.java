@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Bundle
@@ -16,23 +17,25 @@ import java.util.List;
 @DynamoDBTable(tableName = "SHOPPING_LIST_TABLE")
 public class Bundle {
     private String id;
-    private List<String> items;
+    private Map<String, String> items;
     private String author;
     private String status;
     private String type;
+    private List<String> instructions;
 
-    public Bundle(@JsonProperty("items") List<String> items, @JsonProperty("id") String id,
+    public Bundle(@JsonProperty("meta") List<String> instructions, @JsonProperty("items") Map<String, String> items, @JsonProperty("id") String id,
                   @JsonProperty("author") String author, @JsonProperty("status") String status, @JsonProperty("type") String type) {
         this.items = items;
         this.author = author;
         this.status = status;
         this.type = type;
-        this.id=id;
+        this.id = id;
+        this.instructions = instructions;
     }
 
     public Bundle(String id, String type) {
-        this.id=id;
-        this.type=type;
+        this.id = id;
+        this.type = type;
     }
 
     public Bundle() {
@@ -51,7 +54,10 @@ public class Bundle {
     public String getStatus() {
         return status;
     }
-    public void setStatus(String status) { this.status = status;    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @DynamoDBAttribute(attributeName = "TYPE")
     public String getType() {
@@ -63,11 +69,11 @@ public class Bundle {
     }
 
     @DynamoDBAttribute(attributeName = "ITEMS")
-    public List<String>getItems() {
+    public Map<String, String> getItems() {
         return items;
     }
 
-    public void setItems(List<String> items) {
+    public void setItems(Map<String, String> items) {
         this.items = items;
     }
 
@@ -80,6 +86,12 @@ public class Bundle {
         this.author = author;
     }
 
+    @DynamoDBAttribute(attributeName = "META")
+    public List<String> getInstructions() {
+        return instructions;
+    }
 
-
+    public void setInstructions(List<String> instructions) {
+        this.instructions = instructions;
+    }
 }
