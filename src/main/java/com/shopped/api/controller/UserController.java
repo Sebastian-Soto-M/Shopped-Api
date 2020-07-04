@@ -48,4 +48,16 @@ public class UserController {
         return us.getAll();
     }
 
+    @GetMapping( path = "gsi")
+    public List<User> getAllByGsi() {
+        return us.getAllByGsi();
+    }
+
+    @GetMapping( path = "gsi/{email}")
+    public User getByGsi(@PathVariable("email") String email) {
+        User u = us.getByGsi(email);
+        System.out.println(u);
+        return u;
+    }
+
 }

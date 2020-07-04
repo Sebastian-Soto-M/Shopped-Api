@@ -70,7 +70,6 @@ public class User {
     }
 
     @DynamoDBIndexHashKey(attributeName = "EMAIL", globalSecondaryIndexName = ("EMAIL"))
-    @DynamoDBAttribute(attributeName = "EMAIL")
     public String getEmail() {
         return email;
     }

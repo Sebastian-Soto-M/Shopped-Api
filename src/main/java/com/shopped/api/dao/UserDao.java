@@ -6,4 +6,6 @@ import com.shopped.api.model.User;
 
 public interface UserDao extends BaseDao {
     List<User> getAllByGsi();
+
+    User getByGsi(String email);
 }

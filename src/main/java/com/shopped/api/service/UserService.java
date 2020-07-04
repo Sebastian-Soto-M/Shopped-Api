@@ -3,6 +3,7 @@ package com.shopped.api.service;
 import java.util.List;
 
 import com.shopped.api.dao.UserDao;
+import com.shopped.api.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,6 +44,16 @@ public class UserService implements UserDao {
     @Override
     public <T> T get(T t) {
         return this.userDao.get(t);
+    }
+
+    @Override
+    public List<User> getAllByGsi() {
+        return this.userDao.getAllByGsi();
+    }
+
+    @Override
+    public User getByGsi(String email) {
+        return this.userDao.getByGsi(email);
     }
 
 }
