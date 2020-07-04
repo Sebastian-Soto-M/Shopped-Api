@@ -5,7 +5,6 @@ import java.util.List;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -34,9 +33,8 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public User(String id, String status) {
+    public User(String id) {
         this.id = id;
-        this.status = status;
     }
 
     public User() {
@@ -51,7 +49,7 @@ public class User {
         this.id = id;
     }
 
-    @DynamoDBRangeKey(attributeName = "STATUS")
+    @DynamoDBAttribute(attributeName = "STATUS")
     public String getStatus() {
         return status;
     }

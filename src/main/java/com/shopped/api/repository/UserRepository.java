@@ -58,7 +58,7 @@ public class UserRepository implements UserDao {
 
     @Override
     public <T> T get(T t) {
-        return (T) dbMapper.load(User.class, ((User) t).getId(), ((User) t).getStatus());
+        return (T) dbMapper.load(User.class, ((User) t).getId());
     }
 
     @Override
