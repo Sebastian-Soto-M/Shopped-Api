@@ -4,7 +4,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.shopped.api.dao.RecipeDao;
-import com.shopped.api.model.Tag;
+import com.shopped.api.model.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -43,7 +43,7 @@ public class RecipeRepositoy implements RecipeDao {
     @Override
     public <T> List<T> getAll() {
         try {
-            return (List<T>) dbMapper.scan(Tag.class, new DynamoDBScanExpression());
+            return (List<T>) dbMapper.scan(Recipe.class, new DynamoDBScanExpression());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -52,6 +52,6 @@ public class RecipeRepositoy implements RecipeDao {
 
     @Override
     public <T> T get(T t) {
-        return (T) dbMapper.load(Tag.class, ((Tag) t).getName(), ((Tag) t).getType());
+        return (T) dbMapper.load(Recipe.class, ((Recipe) t).getId(), ((Recipe) t).getAuthor());
     }
 }

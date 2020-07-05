@@ -8,8 +8,6 @@ import com.shopped.api.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
-
 /**
  * RecipeController
  */
@@ -34,14 +32,14 @@ public class RecipeController {
         return ts.update(recipe);
     }
 
-    @DeleteMapping(path = "{id}")
-    public Recipe delete(@PathVariable("id") String id) {
-        return ts.delete(new Recipe(id));
+    @DeleteMapping(path = "{id}/{author}")
+    public Recipe delete(@PathVariable("id") String id, @PathVariable("author") String author) {
+        return ts.delete(new Recipe(id, author));
     }
 
-    @GetMapping(path = "{id}")
-    public Recipe get(@PathVariable("id") String id) {
-        return ts.get(new Recipe(id));
+    @GetMapping(path = "{id}/{author}")
+    public Recipe get(@PathVariable("id") String id, @PathVariable("author") String author) {
+        return ts.get(new Recipe(id, author));
     }
 
     @GetMapping
