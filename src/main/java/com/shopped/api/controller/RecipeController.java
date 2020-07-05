@@ -2,6 +2,7 @@ package com.shopped.api.controller;
 
 import java.util.List;
 
+import com.shopped.api.model.Bundle;
 import com.shopped.api.model.Recipe;
 import com.shopped.api.service.RecipeService;
 
@@ -46,5 +47,11 @@ public class RecipeController {
     public List<Recipe> getAll() {
         return ts.getAll();
     }
+
+    @GetMapping(path = "{author}")
+    public List<Recipe> get(@PathVariable("author") String author) {
+        return ts.getAllByAuthor(new Recipe(author));
+    }
+
 
 }

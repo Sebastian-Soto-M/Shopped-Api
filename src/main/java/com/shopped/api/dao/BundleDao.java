@@ -1,4 +1,4 @@
 package com.shopped.api.dao;
 
-public interface BundleDao extends BaseDao{
+public interface BundleDao extends ShoppingListDao{
 }

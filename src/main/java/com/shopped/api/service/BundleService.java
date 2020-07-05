@@ -45,4 +45,6 @@ public class BundleService implements BundleDao {
         return this.bundleDao.get(t);
     }
 
+    @Override
+    public <T> List<T> getAllByAuthor(T t) { return this.bundleDao.getAllByAuthor(t);   }
 }

@@ -42,6 +42,12 @@ public class BundleController {
         return ts.get(new Bundle(id, author));
     }
 
+
+    @GetMapping(path = "{author}")
+    public List<Bundle> get( @PathVariable("author") String author) {
+        return ts.getAllByAuthor(new Bundle(author));
+    }
+
     @GetMapping
     public List<Bundle> getAll() {
         return ts.getAll();

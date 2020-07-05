@@ -45,4 +45,7 @@ public class RecipeService implements RecipeDao{
     public <T> T get(T t) {
         return this.recipeDao.get(t);
     }
+
+    @Override
+    public <T> List<T> getAllByAuthor(T t) { return this.recipeDao.getAllByAuthor(t);   }
 }
