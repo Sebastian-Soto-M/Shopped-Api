@@ -18,14 +18,16 @@ public class Recipe {
     private String author;
     private String status;
     private Map<String, String> data;
+    private Map<String, String> steps;
 
     public Recipe(@JsonProperty("data") Map<String, String> data, @JsonProperty("items") Map<String, String> items, @JsonProperty("id") String id,
-                  @JsonProperty("author") String author, @JsonProperty("status") String status, @JsonProperty("type") String type) {
+                  @JsonProperty("author") String author, @JsonProperty("status") String status, @JsonProperty("type") String type, @JsonProperty("steps") Map<String, String> steps) {
         this.items = items;
         this.author = author;
         this.status = status;
         this.id = id;
         this.data = data;
+        this.steps = steps;
     }
 
     public Recipe(String id, String author) {
@@ -85,4 +87,15 @@ public class Recipe {
     public void setData(Map<String, String> data) {
         this.data = data;
     }
+
+     @DynamoDBAttribute(attributeName = "STEPS")
+    public Map<String, String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(Map<String, String> steps) {
+        this.steps = steps;
+    }
+    
+    
 }
