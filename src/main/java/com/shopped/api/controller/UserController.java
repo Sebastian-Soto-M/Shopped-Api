@@ -1,5 +1,6 @@
 package com.shopped.api.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.shopped.api.model.User;
@@ -8,7 +9,6 @@ import com.shopped.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * UserController
@@ -31,7 +31,8 @@ public class UserController {
 
     @PutMapping
     public User update(@RequestBody User user) {
-        return us.update(user);
+        User u = us.get(user);
+        return (u != null) ? us.update(user) : new User();
     }
 
     @DeleteMapping(path = "{id}")
@@ -42,37 +43,25 @@ public class UserController {
     @GetMapping(path = "{id}")
     public User get(@PathVariable("id") String id) {
         User u = us.get(new User(id));
-        if (u == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return u;
+        return (u != null) ? u : new User();
     }
 
     @GetMapping
     public List<User> getAll() throws RuntimeException {
-        List res = us.getAll();
-        if (res == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Users not found");
-        }
-        return res;
+        List<User> u = us.getAll();
+        return (u != null) ? u : Collections.emptyList();
     }
 
     @GetMapping(path = "gsi")
     public List<User> getAllByGsi() {
-        List res = us.getAllByGsi();
-        if (res == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Users not found");
-        }
-        return res;
+        List<User> u = us.getAllByGsi();
+        return (u != null) ? u : Collections.emptyList();
     }
 
     @GetMapping(path = "gsi/{email}")
     public User getByGsi(@PathVariable("email") String email) {
         User u = us.getByGsi(email);
-        if (u == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return u;
+        return (u != null) ? u : new User();
     }
 
 }
