@@ -26,6 +26,7 @@ public class UserController {
 
     @PostMapping
     public User create(@RequestBody User user) {
+        user.setStatus("ACTIVE");
         return us.create(user);
     }
 
