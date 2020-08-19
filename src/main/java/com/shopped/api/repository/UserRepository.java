@@ -7,7 +7,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.shopped.api.dao.UserDao;
 import com.shopped.api.model.User;
@@ -29,27 +28,37 @@ public class UserRepository implements UserDao {
     }
 
     @Override
-    public <T> T create(T t) {
-        dbMapper.save(t);
-        return t;
+    public User create(User u) {
+        dbMapper.save(u);
+        return u;
     }
 
     @Override
-    public <T> T update(T t) {
-        dbMapper.save(t);
-        return t;
+    public User update(User u) {
+        dbMapper.save(u);
+        return u;
     }
 
     @Override
-    public <T> T delete(T t) {
-        dbMapper.delete(t);
-        return t;
+    public User delete(User u) {
+        dbMapper.save(u);
+        return u;
     }
 
     @Override
-    public <T> List<T> getAll() {
+    public User get(String id) {
         try {
-            return (List<T>) dbMapper.scan(User.class, new DynamoDBScanExpression());
+            User u = dbMapper.load(User.class, id, "ACTIVE");
+            return u;
+        } catch (Exception e) {
+            return new User();
+        }
+    }
+
+    @Override
+    public List<User> getAll() {
+        try {
+            return dbMapper.scan(User.class, new DynamoDBScanExpression());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -57,19 +66,12 @@ public class UserRepository implements UserDao {
     }
 
     @Override
-    public <T> T get(T t) {
-        return (T) dbMapper.load(User.class, ((User) t).getId(), ((User) t).getStatus());
-    }
-
-    @Override
     public List<User> getAllByGsi() {
         try {
-            DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-            .withIndexName("EMAIL")
-            .withConsistentRead(false);
-            return (List<User>) dbMapper.scan(User.class, scanExpression);
+            DynamoDBScanExpression scanExpression = new DynamoDBScanExpression().withIndexName("EMAIL")
+                    .withConsistentRead(false);
+            return dbMapper.scan(User.class, scanExpression);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -78,19 +80,14 @@ public class UserRepository implements UserDao {
     public User getByGsi(String email) {
         HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":email", new AttributeValue().withS(email));
-
         try {
-            DynamoDBQueryExpression<User> queryExpression = new DynamoDBQueryExpression<User>()
-            .withIndexName("EMAIL")
-            .withConsistentRead(false)
-            .withKeyConditionExpression("EMAIL = :email")
-            .withExpressionAttributeValues(eav);
-            return ((List<User>) dbMapper.query(User.class, queryExpression)).get(0);
+            DynamoDBQueryExpression<User> queryExpression = new DynamoDBQueryExpression<User>().withIndexName("EMAIL")
+                    .withConsistentRead(false).withKeyConditionExpression("EMAIL = :email")
+                    .withExpressionAttributeValues(eav);
+            return dbMapper.query(User.class, queryExpression).get(0);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+            return new User();
         }
-
     }
 
 }

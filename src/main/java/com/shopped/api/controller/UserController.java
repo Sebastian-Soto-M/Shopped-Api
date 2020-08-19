@@ -24,7 +24,6 @@ public class UserController {
 
     @PostMapping
     public User create(@RequestBody User user) {
-        System.out.println(user);
         return us.create(user);
     }
 
@@ -35,12 +34,12 @@ public class UserController {
 
     @DeleteMapping(path = "{id}")
     public User delete(@PathVariable("id") String id) {
-        return us.delete(new User(id, "ACTIVE"));
+        return us.delete(id);
     }
 
     @GetMapping(path = "{id}")
     public User get(@PathVariable("id") String id) {
-        return us.get(new User(id, "ACTIVE"));
+        return us.get(id);
     }
 
     @GetMapping
@@ -48,15 +47,14 @@ public class UserController {
         return us.getAll();
     }
 
-    @GetMapping( path = "gsi")
+    @GetMapping(path = "gsi")
     public List<User> getAllByGsi() {
         return us.getAllByGsi();
     }
 
-    @GetMapping( path = "gsi/{email}")
+    @GetMapping(path = "gsi/{email}")
     public User getByGsi(@PathVariable("email") String email) {
         User u = us.getByGsi(email);
-        System.out.println(u);
         return u;
     }
 
