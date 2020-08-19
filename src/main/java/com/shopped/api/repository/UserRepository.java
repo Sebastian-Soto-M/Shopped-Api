@@ -47,12 +47,8 @@ public class UserRepository implements UserDao {
 
     @Override
     public User get(String id) {
-        try {
-            User u = dbMapper.load(User.class, id, "ACTIVE");
-            return u;
-        } catch (Exception e) {
-            return new User();
-        }
+        User u = dbMapper.load(User.class, id, "ACTIVE");
+        return (u != null) ? u : new User();
     }
 
     @Override
