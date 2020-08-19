@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * UserService
  */
 @Service
-public class UserService implements UserDao {
+public class UserService {
     private final UserDao userDao;
 
     @Autowired
@@ -21,39 +21,35 @@ public class UserService implements UserDao {
         this.userDao = userDao;
     }
 
-    @Override
-    public <T> T create(T t) {
-        return this.userDao.create(t);
+    public User create(User u) {
+        u.setStatus("ACTIVE");
+        return userDao.create(u);
     }
 
-    @Override
-    public <T> T update(T t) {
-        return this.userDao.update(t);
+    public User update(User u) {
+        return userDao.update(u);
     }
 
-    @Override
-    public <T> T delete(T t) {
-        return this.userDao.delete(t);
+    public User delete(String id) {
+        User u = userDao.get(id);
+        u.setStatus("INACTIVE");
+        return userDao.delete(u);
     }
 
-    @Override
-    public <T> List<T> getAll() {
-        return this.userDao.getAll();
+    public User get(String id) {
+        return userDao.get(id);
     }
 
-    @Override
-    public <T> T get(T t) {
-        return this.userDao.get(t);
+    public List<User> getAll() {
+        return userDao.getAll();
     }
 
-    @Override
     public List<User> getAllByGsi() {
-        return this.userDao.getAllByGsi();
+        return userDao.getAllByGsi();
     }
 
-    @Override
     public User getByGsi(String email) {
-        return this.userDao.getByGsi(email);
+        return userDao.getByGsi(email);
     }
 
 }

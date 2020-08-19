@@ -1,13 +1,11 @@
 package com.shopped.api.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.shopped.api.model.User;
 import com.shopped.api.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -26,43 +24,38 @@ public class UserController {
 
     @PostMapping
     public User create(@RequestBody User user) {
-        user.setStatus("ACTIVE");
         return us.create(user);
     }
 
     @PutMapping
     public User update(@RequestBody User user) {
-        User u = us.get(user);
-        return (u != null) ? us.update(user) : new User();
+        return us.update(user);
     }
 
     @DeleteMapping(path = "{id}")
     public User delete(@PathVariable("id") String id) {
-        return us.delete(new User(id));
+        return us.delete(id);
     }
 
     @GetMapping(path = "{id}")
     public User get(@PathVariable("id") String id) {
-        User u = us.get(new User(id));
-        return (u != null) ? u : new User();
+        return us.get(id);
     }
 
     @GetMapping
-    public List<User> getAll() throws RuntimeException {
-        List<User> u = us.getAll();
-        return (u != null) ? u : Collections.emptyList();
+    public List<User> getAll() {
+        return us.getAll();
     }
 
     @GetMapping(path = "gsi")
     public List<User> getAllByGsi() {
-        List<User> u = us.getAllByGsi();
-        return (u != null) ? u : Collections.emptyList();
+        return us.getAllByGsi();
     }
 
     @GetMapping(path = "gsi/{email}")
     public User getByGsi(@PathVariable("email") String email) {
         User u = us.getByGsi(email);
-        return (u != null) ? u : new User();
+        return u;
     }
 
 }
