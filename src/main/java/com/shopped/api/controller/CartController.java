@@ -1,11 +1,21 @@
 package com.shopped.api.controller;
 
 import java.util.List;
+
 import com.shopped.api.model.Cart;
+import com.shopped.api.model.Recipe;
 import com.shopped.api.service.CartService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * CartController
@@ -26,34 +36,24 @@ public class CartController {
         return ts.getCurrentByAuthor(author);
     }
 
-    @PostMapping
-    public Cart create(@RequestBody Cart cart) {
-        return ts.create(cart);
-    }
-
-    @PutMapping
-    public Cart update(@RequestBody Cart cart) {
-        return ts.update(cart);
-    }
-
-    @DeleteMapping(path = "{id}/{author}")
-    public Cart delete(@PathVariable("id") String id, @PathVariable("author") String author) {
-        return ts.delete(new Cart(id, author));
-    }
-
-    @GetMapping(path = "{id}/{author}")
-    public Cart get(@PathVariable("id") String id, @PathVariable("author") String author) {
-        return ts.get(new Cart(id, author));
-    }
-
-    @GetMapping
-    public List<Cart> getAll() {
-        return ts.getAll();
+    @PostMapping(path = "replace/{author}")
+    public Cart replaceCart(@PathVariable("author") String author) {
+        return ts.replaceCart(author);
     }
 
     @GetMapping(path = "{author}")
-    public List<Cart> get(@PathVariable("author") String author) {
-        return ts.getAllByAuthor(new Cart(author));
+    public List<Cart> getAllByAuthor(@PathVariable("author") String author) {
+        return ts.getAllByAuthor(author);
+    }
+
+    @PutMapping
+    public Cart update(@RequestBody Cart c) {
+        return ts.update(c);
+    }
+
+    @PostMapping(path = "merge")
+    public Cart mergeRecipe(Recipe r) {
+        return ts.mergeRecipe(r);
     }
 
 }

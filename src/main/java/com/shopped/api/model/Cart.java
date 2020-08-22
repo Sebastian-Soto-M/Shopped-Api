@@ -9,6 +9,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Cart
  */
@@ -18,6 +21,8 @@ public class Cart {
     private Map<String, String> items;
     private String author;
     private String status;
+
+    private Logger logger = LoggerFactory.getLogger(Cart.class);
 
     public Cart(@JsonProperty("items") Map<String, String> items, @JsonProperty("id") String id,
             @JsonProperty("author") String author, @JsonProperty("status") String status) {
@@ -76,8 +81,15 @@ public class Cart {
         this.items = items;
     }
 
-    public void addItem(String name, String amount) {
-        this.items.put(name, amount);
+    public void mergeItems(Map<String, String> itms) {
+    	itms.putAll(this.items);
+        this.items=itms;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart [author=" + author + ", id=" + id + ", items=" + items.keySet().toArray() + ", status=" + status
+                + "]";
     }
 
 }

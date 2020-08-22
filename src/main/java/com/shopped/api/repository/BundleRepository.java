@@ -50,14 +50,14 @@ public class BundleRepository implements BundleDao {
         try {
             return (List<T>) dbMapper.scan(Bundle.class, new DynamoDBScanExpression());
         } catch (Exception e) {
-            e.
+            e.printStackTrace();
             return null;
         }
     }
 
     @Override
     public <T> T get(T t) {
-        return (T) dbMapper.load(Bundle.class, ((Bundle) t).getId(),((Bundle) t).getAuthor());
+        return (T) dbMapper.load(Bundle.class, ((Bundle) t).getId(), ((Bundle) t).getAuthor());
     }
 
     @Override
@@ -67,10 +67,8 @@ public class BundleRepository implements BundleDao {
 
         try {
             DynamoDBQueryExpression<Bundle> queryExpression = new DynamoDBQueryExpression<Bundle>()
-                    .withIndexName("AUTHOR_INDEX")
-                    .withConsistentRead(false)
-                    .withKeyConditionExpression("AUTHOR= :author")
-                    .withExpressionAttributeValues(eav);
+                    .withIndexName("AUTHOR_INDEX").withConsistentRead(false)
+                    .withKeyConditionExpression("AUTHOR= :author").withExpressionAttributeValues(eav);
             return (List<T>) dbMapper.query(Bundle.class, queryExpression);
         } catch (Exception e) {
             return null;

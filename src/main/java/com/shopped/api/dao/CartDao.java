@@ -1,9 +1,22 @@
 package com.shopped.api.dao;
 
-import com.shopped.api.model.Cart;
+import java.util.List;
 
-public interface CartDao extends ShoppingListDao {
+import com.shopped.api.model.Cart;
+import com.shopped.api.model.Recipe;
+
+public interface CartDao {
+
+    Cart replaceCart(String author);
 
     Cart getCurrentByAuthor(String author);
+
+    Cart update(Cart c);
+
+    Cart mergeRecipe(Cart c, Recipe r);
+
+    List<Cart> getAllByAuthor(String author);
+
+    Cart create(String author);
 
 }
