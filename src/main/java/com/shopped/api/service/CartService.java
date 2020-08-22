@@ -3,6 +3,7 @@ package com.shopped.api.service;
 import java.util.List;
 
 import com.shopped.api.dao.CartDao;
+import com.shopped.api.model.Cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,5 +47,11 @@ public class CartService implements CartDao {
     }
 
     @Override
-    public <T> List<T> getAllByAuthor(T t) { return this.cartDao.getAllByAuthor(t);   }
+    public <T> List<T> getAllByAuthor(T t) {
+        return this.cartDao.getAllByAuthor(t);
+    }
+
+    public Cart getCurrentByAuthor(String author) {
+        return this.cartDao.getCurrentByAuthor(author);
+    }
 }

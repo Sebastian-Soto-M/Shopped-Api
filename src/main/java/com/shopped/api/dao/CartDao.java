@@ -1,4 +1,9 @@
 package com.shopped.api.dao;
 
-public interface CartDao extends ShoppingListDao{
+import com.shopped.api.model.Cart;
+
+public interface CartDao extends ShoppingListDao {
+
+    Cart getCurrentByAuthor(String author);
+
 }

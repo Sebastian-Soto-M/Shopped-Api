@@ -49,7 +49,7 @@ public class RecipeRepositoy implements RecipeDao {
         try {
             return (List<T>) dbMapper.scan(Recipe.class, new DynamoDBScanExpression());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace()
             return null;
         }
     }

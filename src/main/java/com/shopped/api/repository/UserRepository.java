@@ -56,7 +56,7 @@ public class UserRepository implements UserDao {
         try {
             return dbMapper.scan(User.class, new DynamoDBScanExpression());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

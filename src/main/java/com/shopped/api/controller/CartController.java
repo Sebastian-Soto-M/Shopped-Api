@@ -21,6 +21,11 @@ public class CartController {
         this.ts = ts;
     }
 
+    @GetMapping(path = "active/{author}")
+    public Cart getCurrent(@PathVariable("author") String author) {
+        return ts.getCurrentByAuthor(author);
+    }
+
     @PostMapping
     public Cart create(@RequestBody Cart cart) {
         return ts.create(cart);
@@ -50,6 +55,5 @@ public class CartController {
     public List<Cart> get(@PathVariable("author") String author) {
         return ts.getAllByAuthor(new Cart(author));
     }
-
 
 }

@@ -47,7 +47,7 @@ public class TagRepository implements TagDao {
         try {
             return (List<T>) dbMapper.scan(Tag.class, new DynamoDBScanExpression());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

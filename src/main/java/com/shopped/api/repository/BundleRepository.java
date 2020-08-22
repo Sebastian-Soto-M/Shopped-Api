@@ -50,7 +50,7 @@ public class BundleRepository implements BundleDao {
         try {
             return (List<T>) dbMapper.scan(Bundle.class, new DynamoDBScanExpression());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.
             return null;
         }
     }
