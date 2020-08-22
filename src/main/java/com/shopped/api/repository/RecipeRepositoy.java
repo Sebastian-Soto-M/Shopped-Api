@@ -49,7 +49,7 @@ public class RecipeRepositoy implements RecipeDao {
         try {
             return (List<T>) dbMapper.scan(Recipe.class, new DynamoDBScanExpression());
         } catch (Exception e) {
-            e.printStackTrace()
+            e.printStackTrace();
             return null;
         }
     }
@@ -63,6 +63,7 @@ public class RecipeRepositoy implements RecipeDao {
     public <T> List<T> getAllByAuthor(T t) {
         HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":author", new AttributeValue().withS(((Recipe) t).getAuthor()));
+
 
         try {
             DynamoDBQueryExpression<Recipe> queryExpression = new DynamoDBQueryExpression<Recipe>()
