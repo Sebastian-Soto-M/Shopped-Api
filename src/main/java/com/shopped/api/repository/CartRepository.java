@@ -69,7 +69,11 @@ public class CartRepository implements CartDao {
     @Override
     public Cart update(Cart c) {
         Cart current = getCurrentByAuthor(c.getAuthor());
-        current.mergeItems(c.getItems());
+        var items = c.getItems();
+        items.values().stream().forEach(System.out::printf);
+        if (items != null) {
+            current.mergeItems(items);
+        }
         dbMapper.save(current);
         return current;
     }
