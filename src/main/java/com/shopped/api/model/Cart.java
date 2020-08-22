@@ -76,8 +76,15 @@ public class Cart {
         this.items = items;
     }
 
-    public void addItem(String name, String amount) {
-        this.items.put(name, amount);
+    public void mergeItems(Map<String, String> itms) {
+        itms.forEach(
+                (key, value) -> this.items.merge(key, value, (v1, v2) -> v1.equalsIgnoreCase(v2) ? v1 : v1 + "," + v2));
+    }
+
+    @Override
+    public String toString() {
+        return "Cart [author=" + author + ", id=" + id + ", items=" + items.keySet().toArray() + ", status=" + status
+                + "]";
     }
 
 }
