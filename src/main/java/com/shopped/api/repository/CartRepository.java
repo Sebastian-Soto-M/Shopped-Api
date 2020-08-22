@@ -2,6 +2,7 @@ package com.shopped.api.repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -69,10 +70,12 @@ public class CartRepository implements CartDao {
     @Override
     public Cart update(Cart c) {
         Cart current = getCurrentByAuthor(c.getAuthor());
-        var items = c.getItems();
-        items.values().stream().forEach(System.out::printf);
-        if (items != null) {
+        Map<String, String> items = c.getItems();
+        
+        if (current.getItems() != null) {
             current.mergeItems(items);
+        }else {
+        	current.setItems(items);
         }
         dbMapper.save(current);
         return current;

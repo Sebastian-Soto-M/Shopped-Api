@@ -82,10 +82,8 @@ public class Cart {
     }
 
     public void mergeItems(Map<String, String> itms) {
-        logger.info("Cart's current size:\t:" + this.items.size());
-        itms.forEach(
-                (key, value) -> this.items.merge(key, value, (v1, v2) -> v1.equalsIgnoreCase(v2) ? v1 : v1 + "," + v2));
-        logger.info("Cart's new size:\t:" + this.items.size());
+    	itms.putAll(this.items);
+        this.items=itms;
     }
 
     @Override
