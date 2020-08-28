@@ -1,2 +1,2 @@
 # Shopped API
-t1
+Java backend with AWS DynamoDB for the Shopped application
